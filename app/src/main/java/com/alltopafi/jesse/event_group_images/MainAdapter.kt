@@ -24,7 +24,7 @@ class MainAdapter: RecyclerView.Adapter<CustomViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder?, position: Int) {
-        holder?.view?.textView_authorName?.text = "dsfsd"
+        holder?.view?.textView_authorName?.text = "123"
     }
 }
 

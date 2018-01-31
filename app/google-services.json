@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "598197489208",
+    "firebase_url": "https://eventgroupimages.firebaseio.com",
+    "project_id": "eventgroupimages",
+    "storage_bucket": "eventgroupimages.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598197489208:android:e856c4bff2f7a84b",
+        "android_client_info": {
+          "package_name": "com.alltopafi.jesse.event_group_images"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "598197489208-07eb97rign40bkqer55drirfvoph7ajs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm0hPe6mUdogHu0lghb6KH3qTanipOxyI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
