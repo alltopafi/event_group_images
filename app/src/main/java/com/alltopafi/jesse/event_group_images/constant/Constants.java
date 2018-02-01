@@ -6,5 +6,8 @@ package com.alltopafi.jesse.event_group_images.constant;
 
 public final class Constants {
 
-    public static final String ROOT_NODE = "POSTS";
+    public static final String ROOT_NODE = "EVENT";
+    public static final String POST_NODE = "POSTS";
+    //TODO: this needs to become dunamic
+    public static final String EVENT_NODE = "Alltop wedding";
 }

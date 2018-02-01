@@ -27,7 +27,8 @@ class MainActivity : AppCompatActivity() {
         val posts = ArrayList<Post?>()
 
         FirebaseDatabase.getInstance().reference
-                .child(Constants.ROOT_NODE).addValueEventListener(object : ValueEventListener {
+                .child(Constants.ROOT_NODE).child(Constants.EVENT_NODE).child(Constants.POST_NODE).
+                                                    addValueEventListener(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot?) {
 
 
