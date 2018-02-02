@@ -1,12 +1,15 @@
 package com.alltopafi.jesse.event_group_images
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.alltopafi.jesse.event_group_images.constant.Constants
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -35,7 +38,7 @@ class SignUpActivity: AppCompatActivity() {
                 "You must give an email".toast(this)
             }else {
                 if (matchingPasswords(passwordField.text.toString(), confirmPasswordField.text.toString())) {
-                signIn(fbAuth, emailField?.text.toString(), passwordField?.text.toString())
+                signIn(fbAuth, emailField?.text.toString(), passwordField?.text.toString(), this)
                 } else {
                     "Passwords must match".toast(this)
                 }
@@ -61,13 +64,18 @@ class SignUpActivity: AppCompatActivity() {
 
 }
 
-fun signIn(fbAuth: FirebaseAuth, email: String, password: String) {
+fun signIn(fbAuth: FirebaseAuth, email: String, password: String, context: Context) {
     fbAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task: Task<AuthResult> ->
         if (task.isSuccessful) {
             //Registration OK
-            val firebaseUser = fbAuth.currentUser!!
+//            val firebaseUser = fbAuth.currentUser!!
+
+            var intent = Intent(context, MainActivity::class.java)
+            startActivity(context, intent, null)
+
+
         } else {
-            //Registration error
+            Constants.CREATE_ACT_ERROR.toast(context)
         }
     }
 }
