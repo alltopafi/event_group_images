@@ -11,5 +11,10 @@ public final class Constants {
     //TODO: this needs to become dynamic
     public static final String EVENT_NODE = "Alltop wedding";
 
+    public static final String PATH_FOR_IMAGE = ROOT_NODE + "/" + EVENT_NODE + "/";
+
     public static final String CREATE_ACT_ERROR = "There was an error creating your account.";
+
+    public static final String AUTHOR = "AUTHOR";
+    public static final String IMAGE_URL = "IMAGE_URL";
 }

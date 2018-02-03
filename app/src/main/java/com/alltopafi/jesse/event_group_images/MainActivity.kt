@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView_main.layoutManager = LinearLayoutManager(this )
         val posts = firebaseRetrieve()
-        recyclerView_main.adapter = MainAdapter(posts)
+        recyclerView_main.adapter = MainAdapter(posts, this)
 
 
         val cameraButton = findViewById<Button>(R.id.button_camera)
