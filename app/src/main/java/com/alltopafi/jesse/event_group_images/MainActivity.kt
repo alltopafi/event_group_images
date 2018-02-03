@@ -52,7 +52,10 @@ class MainActivity : AppCompatActivity() {
                             Log.i("Key value for child", postSnapshot.key)
 
                             val post = p0.child(postSnapshot.key).getValue(Post::class.java)
-                            posts.add(post)
+
+                            if(!posts.contains(post)) {
+                                posts.add(post)
+                            }
                         }
                         recyclerView_main.adapter.notifyDataSetChanged()
                     }
