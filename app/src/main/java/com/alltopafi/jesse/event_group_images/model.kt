@@ -5,7 +5,6 @@ package com.alltopafi.jesse.event_group_images
  */
 
 class Post(){
-    val UID : Long = -1
-    val AUTHOR : String = ""
-    val IMAGE_URL : String = ""
+    var AUTHOR : String = ""
+    var IMAGE_URL : String = ""
 }

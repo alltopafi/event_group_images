@@ -14,7 +14,9 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import com.alltopafi.jesse.event_group_images.constant.Constants
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 
 /**
@@ -50,6 +52,8 @@ class ImageCaptureActivity: AppCompatActivity() {
 
             Log.i("Picture taken", "The author of the image is " + user?.displayName + " and their email " +
                     "is " + user?.email)
+
+            makePostAndUploadImage(photo)
         }
     }
 
@@ -84,6 +88,27 @@ class ImageCaptureActivity: AppCompatActivity() {
         }
     }
 
+    private fun makePostAndUploadImage(photo: Bitmap) {
+
+        val post = makePost()
+
+        val childNode = FirebaseDatabase.getInstance().reference.child(Constants.ROOT_NODE).child(Constants.EVENT_NODE)
+                .child(Constants.POST_NODE)
+
+        val key = childNode.push().key
+
+        childNode.child(key).updateChildren(post)
+
+    }
+
+
+    private fun makePost(): HashMap<String, Any> {
+        val map = HashMap<String, Any>()
+        map.put("AUTHOR", FirebaseAuth.getInstance().currentUser?.displayName!!)
+        map.put("IMAGE_URL", "exampleURL")
+
+        return map
+    }
 }
 
 
