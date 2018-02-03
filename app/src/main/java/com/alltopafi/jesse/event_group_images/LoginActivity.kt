@@ -32,6 +32,13 @@ class LoginActivity : AppCompatActivity() {
         btnLogin.setOnClickListener { view ->
             signIn(view, emailField?.text.toString(), passwordField?.text.toString())
         }
+
+        var btnSignup = findViewById<Button>(R.id.button_signup_login)
+        btnSignup.setOnClickListener { view ->
+            var intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     fun signIn(view: View,email: String, password: String){
