@@ -17,6 +17,9 @@ import android.widget.ImageView
 import com.alltopafi.jesse.event_group_images.constant.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
+import java.io.ByteArrayOutputStream
+import java.util.*
 
 
 /**
@@ -90,6 +93,10 @@ class ImageCaptureActivity: AppCompatActivity() {
 
     private fun makePostAndUploadImage(photo: Bitmap) {
 
+
+        uploadImage(photo)
+
+
         val post = makePost()
 
         val childNode = FirebaseDatabase.getInstance().reference.child(Constants.ROOT_NODE).child(Constants.EVENT_NODE)
@@ -98,6 +105,28 @@ class ImageCaptureActivity: AppCompatActivity() {
         val key = childNode.push().key
 
         childNode.child(key).updateChildren(post)
+
+
+
+    }
+
+    private fun uploadImage(photo: Bitmap) {
+        val fStorage = FirebaseStorage.getInstance().reference
+
+        val ref = fStorage.child(Constants.EVENT_NODE).child("/images/" + UUID.randomUUID())
+
+        val buffer = ByteArrayOutputStream()
+        photo.compress(Bitmap.CompressFormat.JPEG, 100, buffer)
+        val byteArray = buffer.toByteArray()
+
+        val uploadTask = ref.putBytes(byteArray)
+                .addOnCompleteListener {
+                    Log.i("event", "The image was uploaded")
+                }
+                .addOnFailureListener {
+                    Log.e("Error", "There was an error with the upload")
+                }
+
 
     }
 
