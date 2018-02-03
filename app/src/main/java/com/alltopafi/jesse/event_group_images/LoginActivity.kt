@@ -1,5 +1,6 @@
 package com.alltopafi.jesse.event_group_images
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -38,18 +39,20 @@ class LoginActivity : AppCompatActivity() {
 
         fbAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, OnCompleteListener<AuthResult> { task ->
             if(task.isSuccessful){
-//                var intent = Intent(this, LoggedInActivity::class.java)
-//                intent.putExtra("id", fbAuth.currentUser?.email)
-//                startActivity(intent)LoggedInActivity::class.java)
-//                intent.putExtra("id", fbAuth.currentUser?.email)
-//                startActivity(intent)
                 Log.i("status", "worked--------------")
-
+                successfulLogin()
             }else{
 //                showMessage(view,"Error: ${task.exception?.message}")
                 Log.e("Login Error", "failed to login")
             }
         })
 
+    }
+
+
+    private fun successfulLogin() {
+        var intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("id", fbAuth.currentUser?.email)
+        startActivity(intent)
     }
 }
