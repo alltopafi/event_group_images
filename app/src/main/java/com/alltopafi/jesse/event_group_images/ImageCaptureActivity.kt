@@ -14,7 +14,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-
+import com.google.firebase.auth.FirebaseAuth
 
 
 /**
@@ -45,6 +45,11 @@ class ImageCaptureActivity: AppCompatActivity() {
         if(requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             var photo = data?.extras?.get("data") as Bitmap
             imageView?.setImageBitmap(photo)
+
+            val user = FirebaseAuth.getInstance().currentUser
+
+            Log.i("Picture taken", "The author of the image is " + user?.displayName + " and their email " +
+                    "is " + user?.email)
         }
     }
 

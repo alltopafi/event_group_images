@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">Event_Group_Images</string>
+    <string name="app_name">Event Group Images</string>
     <string name="loginButtonTitle">Login</string>
     <string name="signUpButtonTitle">Sign-up</string>
+    <string name="signOutButtonTile">Sign-out</string>
     <string name="emailHint">E-mail</string>
     <string name="passWordHint">Password</string>
     <string name="confirmPasswordHint">Confirm Password</string>

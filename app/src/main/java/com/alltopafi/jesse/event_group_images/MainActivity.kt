@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.widget.Button
 import com.alltopafi.jesse.event_group_images.constant.Constants
+import com.firebase.ui.auth.AuthUI
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -29,6 +30,11 @@ class MainActivity : AppCompatActivity() {
 
             val cameraViewIntent = Intent(this, ImageCaptureActivity::class.java)
             startActivity(cameraViewIntent)
+        }
+
+        val signoutButton = findViewById<Button>(R.id.button_signout)
+        signoutButton.setOnClickListener {view ->
+            signoutUser()
         }
 
     }
@@ -57,6 +63,15 @@ class MainActivity : AppCompatActivity() {
                 })
 
         return posts
+    }
+
+    fun signoutUser() {
+        AuthUI.getInstance()
+                .signOut(this)
+                .addOnCompleteListener{
+                    startActivity(Intent(this, SignInActivity::class.java))
+                    finish()
+                }
     }
 
 }
