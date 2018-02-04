@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.provider.MediaStore
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
@@ -47,22 +48,6 @@ class ImageCaptureActivity: AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            var photo = data?.extras?.get("data") as Bitmap
-            imageView?.setImageBitmap(photo)
-
-            val user = FirebaseAuth.getInstance().currentUser
-
-            Log.i("Picture taken", "The author of the image is " + user?.displayName + " and their email " +
-                    "is " + user?.email)
-
-            makePostAndUploadImage(photo)
-        }
-    }
-
-
     private fun checkForCameraPermission(context: Context) {
         val cameraPermission = ContextCompat.checkSelfPermission(context, android.Manifest.permission.CAMERA)
 
@@ -73,6 +58,22 @@ class ImageCaptureActivity: AppCompatActivity() {
         }else{
             var cameraIntent = Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == CAMERA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            var photo = data?.extras?.get("data") as Bitmap
+            
+            imageView?.setImageBitmap(photo)
+
+            val user = FirebaseAuth.getInstance().currentUser
+
+            Log.i("Picture taken", "The author of the image is " + user?.displayName + " and their email " +
+                    "is " + user?.email)
+
+            uploadImage(photo)
         }
     }
 
@@ -93,20 +94,13 @@ class ImageCaptureActivity: AppCompatActivity() {
         }
     }
 
-    private fun makePostAndUploadImage(photo: Bitmap) {
-
-        uploadImage(photo)
-
-
-    }
-
     private fun uploadImage(photo: Bitmap) {
         val fStorage = FirebaseStorage.getInstance().reference
 
         val ref = fStorage.child(Constants.ROOT_NODE).child(Constants.EVENT_NODE).child("/images/" + UUID.randomUUID())
 
         val buffer = ByteArrayOutputStream()
-        photo.compress(Bitmap.CompressFormat.JPEG, 100, buffer)
+        photo.compress(Bitmap.CompressFormat.PNG, 100, buffer)
         val byteArray = buffer.toByteArray()
 
 
